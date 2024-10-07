@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class GifBot extends TelegramLongPollingBot {
+    private static final String BOT_USERNAME = "gif_aston_bot";
     private static final String BOT_TOKEN = "8151829511:AAEQpsQHrm5srdzYu5kE1Xwnx8N9Cf0rAeA";
 
     public GifBot() {
@@ -61,7 +62,7 @@ public class GifBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "gif_aston_bot";
+        return BOT_USERNAME;
     }
 
     @Override
