@@ -1,5 +1,6 @@
 package org.jabrimuhi;
 
+import internal.DatabaseManager;
 import org.jabrimuhi.bot.GifBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -16,12 +17,13 @@ public class Main {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 
-    public static void main(String[] args) throws TelegramApiException {
+    public static void main(String[] args) throws TelegramApiException, SQLException {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-        telegramBotsApi.registerBot(new GifBot());
+        Connection connection = getConnection();
+        DatabaseManager databaseManager = new DatabaseManager(connection);
+        telegramBotsApi.registerBot(new GifBot(databaseManager));
 
         try {
-            Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM example");
             while (resultSet.next()) {
